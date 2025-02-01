@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .contacts {
+            margin-top: 20px;
+        }
+        .contact {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FastAPI Contacts</h1>
+
+        <h2>Create/Update Contact</h2>
+        <form method="post" action="/post">
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name" required>
+
+            <label for="contact">Contact:</label>
+            <input type="text" id="contact" name="contact" required>
+
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="Email" required>
+
+            <label for="Address">Address:</label>
+            <input type="text" id="Address" name="Address" required>
+
+            <button type="submit">Add Contact</button>
+             
+        </form>
+        <h2>Contacts List</h2>
+        <div class="contacts">
+            {% for contact in contacts %}
+            <div class="contact">
+                <p><strong>Name:</strong> {{ contact.Name }}</p>
+                <p><strong>Contact:</strong> {{ contact.contact }}</p>
+                <p><strong>Email:</strong> {{ contact.Email }}</p>
+                <p><strong>Address:</strong> {{ contact.Address }}</p>
+            </div>
+            <form method="post" action="/delete/{{ contact.id }}">
+                <button type="submit">Delete</button>
+            </form> 
+            <form method="get" action="/update/{{ contact.id }}">
+                <button type="submit">Update</button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+</html>
